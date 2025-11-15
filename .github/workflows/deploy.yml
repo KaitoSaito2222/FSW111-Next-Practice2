@@ -42,11 +42,6 @@ jobs:
               sudo usermod -aG docker ubuntu
             fi
             
-            if ! command -v git &> /dev/null; then
-              sudo apt-get update
-              sudo apt-get install -y git
-            fi
-            
             echo ${{ secrets.GHCR_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
             sudo docker pull ghcr.io/${{ github.repository }}:latest
             sudo docker stop my-next-project || true && sudo docker rm my-next-project || true
